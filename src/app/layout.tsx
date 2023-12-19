@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { ThemeProvider } from "@/context/ThemeProvider";
-import { Inter as FontSans } from "next/font/google";
+import AppProvider from "@/context/AppContext";
 import { cn } from "@/lib/utils";
+import { AuthProvider, ThemeProvider } from "@/providers";
+import type { Metadata } from "next";
+import { Inter as FontSans } from "next/font/google";
+import "./globals.css";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -33,7 +34,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <AuthProvider>
+            <AppProvider>{children}</AppProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
